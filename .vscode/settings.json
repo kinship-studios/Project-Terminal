@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["/*.level.json"],
+      "url": "./schema/level.json"
+    }
+  ]
+}

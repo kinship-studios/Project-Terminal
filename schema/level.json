@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "game/level.json",
+
+  "title": "PTLevel",
+  "description": "A level made for Project Terminal",
+
+  "type": "object",
+
+  "properties": {
+    "level": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "ID of the level",
+
+          "type": "string"
+        },
+        "group": {
+          "description": "The group that the level is in.",
+
+          "type": "string"
+        }
+      },
+      "required": ["name"]
+    },
+
+    "text": {
+      "type": "object",
+      "properties": {
+        "prompts": {
+          "description": "Prompt(s) to show when level is selected",
+
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "choices": {
+          "description": "Choice(s) shown when level is selected, to activate actions",
+
+          "type": "array",
+          "items": {
+            "type": "array",
+            "contains": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": ["prompts"]
+    }
+  }
+}
