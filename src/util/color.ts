@@ -1,10 +1,40 @@
 // Palette color system, used in Project Terminal
+import { Range } from './elixir/types';
+
+const ColorValueRange = new Range(0, 255)
 
 export class Color {
-  r: number
-  g: number
-  b: number
-  a: number
+  private _r: number
+  get r () { return this._r }
+  set r (val: number) {
+    if (Range.check(val, ColorValueRange, `Color: r: ${val} doesn't meet range!`)) {
+      this._r = val
+    }
+  }
+
+  private _g: number
+  get g () { return this._g }
+  set g (val: number) {
+    if (Range.check(val, ColorValueRange, `Color: g: ${val} doesn't meet range!`)) {
+      this._g = val
+    }
+  }
+
+  private _b: number
+  get b () { return this._b }
+  set b (val: number) {
+    if (Range.check(val, ColorValueRange, `Color: b: ${val} doesn't meet range!`)) {
+      this._b = val
+    }
+  }
+
+  private _a: number
+  get a () { return this._a }
+  set a (val: number) {
+    if (Range.check(val, new Range(0, 1), `Color: a: ${val} doesn't meet range!`)) {
+      this._a = val
+    }
+  }
 
   private _render: string
   get render (): string {
