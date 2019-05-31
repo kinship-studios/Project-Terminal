@@ -1,4 +1,5 @@
-export type EventFunction = (args?: any[]) => void
+type EventArgs = any[]
+export type EventFunction = (args?: EventArgs) => void
 
 export class Event {
   name: string
@@ -19,7 +20,7 @@ export class Event {
     if (onTrigger) {
       this.onTrigger = onTrigger
     } else {
-      this.onTrigger = (args?: any[]) => {
+      this.onTrigger = (args?: EventArgs) => {
         return undefined
       }
     }
@@ -33,7 +34,7 @@ export class Event {
   public static registerList (name: string) {
     Events[name] = {}
   }
-  public static registerEvent (event: Event, args?: any[], eventList: string = "main"): void {
+  public static registerEvent (event: Event, args?: EventArgs, eventList: string = "main"): void {
     if (Events[eventList]) {
       Events[eventList][event.name] = event
       event.onRegister(args)
@@ -42,9 +43,9 @@ export class Event {
     }
   }
 
-  public static trigger(event: String | Event, args?: any[], triggerArgs?: any[], eventList: string = "main") {
+  public static trigger(event: String | Event, args?: EventArgs, onTriggerArgs?: EventArgs, eventList: string = "main") {
     if (typeof event == "string") {
-      Events[eventList][event].onTrigger(args)
+      Events[eventList][event].onTrigger(onTriggerArgs)
       Events[eventList][event].event(args)
     } else if (event instanceof Event) {
       event.event()
@@ -56,8 +57,11 @@ export class Trigger {
   name: string
   events: {[name: string]: Event}
 
-  public trigger (args?: any[]) {
-
+  public trigger (eventArgs?: EventArgs, triggerArgs?: EventArgs) {
+    for (const i in this.events) {
+      this.events[i].onTrigger(triggerArgs)
+      this.events[i].event(eventArgs)
+    }
   }
 }
 
