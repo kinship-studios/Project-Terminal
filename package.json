@@ -14,7 +14,13 @@
   "author": "Kinship Studios",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^12.0.0"
+    "@types/node": "^12.0.0",
+    "gulp": "^4.0.2",
+    "gulp-replace": "^1.0.0",
+    "gulp-run": "^1.7.1",
+    "gulp-typescript": "^5.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron": "^5.0.4"
+  }
 }
