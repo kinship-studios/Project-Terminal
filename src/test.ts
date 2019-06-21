@@ -1,12 +1,23 @@
-import { LevelData } from './save/levels/loadLevels'
-import { levels } from './save/levels/level'
-import { loadJSON, dataPath } from "./util/loadJSON"
-import * as path from 'path'
+import { Event, Events } from "./util/events/events";
+import { Save } from "./save/saves";
 
+Events["main"] = {}
 
-LevelData.load()
+Event.register(new Event(
+  "test",
+  (args?: any[]) => {
+    console.log("Event Run")
+  },
+  (args?: any[]) => {
+    console.log("Event [onTrigger]")
+  },
+  (args?: any[]) => {
+    console.log ("Event [onRegister]")
+  }
+))
 
-console.log(levels)
+console.log(`\n ${Events.main.test.toString()} \n`)
+  
+Event.trigger('test')
 
-console.log(dataPath)
-console.log(path.join(dataPath, "./levels"))
+Save.preLoadAll()

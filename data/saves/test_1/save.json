@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "name": "test 1",
+    "id": "test_1",
+
+    "lastLoaded": ""
+  },
+
+  "data": {
+
+  },
+
+  "levelPathList": [
+    "./levels/"
+  ]
+}

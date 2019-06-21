@@ -1,3 +1,4 @@
+import { LogicReturn } from "./logic"
 
 export class Range {
   min: number
@@ -9,21 +10,26 @@ export class Range {
   }
 
   // Static method
-  public static check (input: number, range: Range, error?: string): boolean {
-    if (input > range.max) {
-      if (error) {
-        throw new Error (error)
-      } else {
-        return false
-      }
-    } else if  (input < range.min) {
-      if (error) {
-        throw new Error (error)
-      } else {
-        return false
-      }
-    } else {
-      return true
-    }
+  public static check (input: number, range: Range, error: string): boolean {
+    if (input > range.max || input < range.min) {
+      throwIfExists(error)
+      return false
+    } else return true
   }
+}
+
+export function runIfExists (func?: Function, param1?: any, param2?: any, param3?: any): LogicReturn {
+  if (func) {
+    func(param1, param2, param3)
+  }
+
+  return new LogicReturn()
+}
+
+export function throwIfExists (error: string): LogicReturn {
+  if (error) {
+    throw new Error(error)
+  }
+
+  return new LogicReturn()
 }

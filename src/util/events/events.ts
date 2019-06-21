@@ -1,3 +1,5 @@
+import { runIfExists } from "../elixir/types";
+
 type EventArgs = any[]
 export type EventFunction = (args?: EventArgs) => void
 
@@ -31,10 +33,7 @@ export class Event {
   }
 
   // Static Methods
-  public static registerList (name: string) {
-    Events[name] = {}
-  }
-  public static registerEvent (event: Event, args?: EventArgs, eventList: string = "main"): void {
+  public static register (event: Event, args?: EventArgs, eventList: string = "main"): void {
     if (Events[eventList]) {
       Events[eventList][event.name] = event
       event.onRegister(args)
@@ -43,19 +42,31 @@ export class Event {
     }
   }
 
-  public static trigger(event: String | Event, args?: EventArgs, onTriggerArgs?: EventArgs, eventList: string = "main") {
+  public static trigger (event: String | Event, args?: EventArgs, onTriggerArgs?: EventArgs, eventList: string = "main") {
     if (typeof event == "string") {
-      Events[eventList][event].onTrigger(onTriggerArgs)
+      runIfExists(Events[eventList][event].onTrigger, onTriggerArgs)
       Events[eventList][event].event(args)
     } else if (event instanceof Event) {
       event.event()
     }
   }
+  public static async triggerAsync (event: String | Event, args?: EventArgs, onTriggerArgs?: EventArgs, eventList: string = "main") {
+    this.trigger(event, args, onTriggerArgs, eventList)
+  }
 }
 
 export class Trigger {
   name: string
-  events: {[name: string]: Event}
+  events: EventGroup
+
+  onTrigger: EventFunction  
+
+  constructor (name: string, events?: EventGroup, onTrigger?: EventFunction ) {
+    this.name = name
+    this.events = events
+    
+    this.onTrigger = onTrigger
+  }
 
   public trigger (eventArgs?: EventArgs, triggerArgs?: EventArgs) {
     for (const i in this.events) {
@@ -63,11 +74,41 @@ export class Trigger {
       this.events[i].event(eventArgs)
     }
   }
+
+  public async triggerAsync (eventArgs?: EventArgs, triggerArgs?: EventArgs) {
+    for (const i in this.events) {
+      this.events[i].onTrigger(triggerArgs)
+      this.events[i].event(triggerArgs)
+    }
+  }
+
+  // Add trigger (static)
+  public static add (trigger: Trigger, onAdd?: EventFunction) {
+    Triggers[trigger.name] = trigger
+    runIfExists(onAdd)
+  }
+}
+
+module EventUtil {
+  export function searchForEvent (event: string | Event) {
+    let searchFor: string
+    if (typeof event == 'string') {
+      searchFor = event
+    } else if (event instanceof Event) {
+      searchFor = event.name
+    }
+
+    for (const i in Events) {
+      
+    }
+  }
 }
 
 type EventGroup = {[name: string]: Event}
-type EventsHolder = {[name: string]: EventGroup}
+type EventHolder = {[name: string]: EventGroup}
 
-export let Events: EventsHolder = {}
+export let Events: EventHolder = {}
+Events.main = {}
+export let Triggers: {[name: string]: Trigger} = {}
 
-Event.registerList("main")
+Trigger.add(new Trigger("default"))

@@ -1,5 +1,5 @@
 import * as path from "path"
-import { readdirSync, readFileSync } from "fs";
+import { readdirSync, readFileSync, readFile } from "fs";
 
 export let dataPath: string = path.join(__dirname, "../data")
 
@@ -15,4 +15,10 @@ export function loadJSON (folderPath: string): any[] {
   })
 
   return output
+}
+
+export function loadJSONFile (filePath: string): any {
+  let fileContent: any = readFileSync(filePath)
+
+  return JSON.parse(fileContent)
 }

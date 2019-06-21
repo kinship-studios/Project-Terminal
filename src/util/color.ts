@@ -1,4 +1,4 @@
-// Palette color system, used in Project Terminal
+// Palette color system, used in Project Terminal (with additions)
 import { Range } from './elixir/types';
 
 const ColorValueRange = new Range(0, 255)
