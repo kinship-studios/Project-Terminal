@@ -21,7 +21,6 @@ export class MainApp {
 
   // Documents
   indexPage: Page
-  pages: Page[]
 
   // Configuration
   appConfig: MainAppOptions
@@ -64,12 +63,12 @@ export class MainApp {
 
   // Constructor
   constructor (
-    settings?: BrowserWindowConstructorOptions,
     indexPage?: Page,
-    pages?: Page[]
+    settings?: BrowserWindowConstructorOptions,
+    appConfig?: MainAppOptions
   ) {
     this.settings = settings
     this.indexPage = indexPage
-    this.pages = pages
+    this.appConfig = appConfig
   }
 }

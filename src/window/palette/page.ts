@@ -46,4 +46,8 @@ export class Page {
       }
     }
   }
+  
+  constructor(path?: string) {
+    this.path = path
+  }
 }
