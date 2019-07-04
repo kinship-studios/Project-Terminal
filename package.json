@@ -13,7 +13,7 @@
     "typescript"
   ],
   "author": "Kinship Studios/cakeebot/jdflyer",
-  "license": "MIT",
+  "license": "GPLv3",
   "devDependencies": {
     "@types/node": "^12.0.0",
     "gulp": "^4.0.2",
