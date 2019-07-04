@@ -45,9 +45,10 @@ export class MainApp {
       this.window = null
     })
   }
-  public startApp (): void {
+  public startApp (onStart?: VoidFunction): void {
     app.on('ready', ()=>{
       this.createWindow()
+      onStart()
     })
     app.on('quit', ()=> {
       if (process.platform != 'darwin') {
@@ -57,6 +58,7 @@ export class MainApp {
     app.on('activate', ()=>{
       if (this.window == null) {
         this.createWindow()
+        onStart()
       }
     })
   }
