@@ -1,18 +1,19 @@
 {
-  "name": "terminal-ts",
+  "name": "project-terminal",
   "version": "1.0.0",
-  "description": "Text adventure library",
-  "main": "index.js",
+  "description": "Text adventure by Kinship Studios",
+  "main": "./js/window/createWindow.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "compile": "gulp compile",
+    "test": "gulp compile && electron ."
   },
   "keywords": [
     "game",
-    "library",
     "typescript"
   ],
-  "author": "Kinship Studios",
-  "license": "ISC",
+  "author": "Kinship Studios/cakeebot/jdflyer",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^12.0.0",
     "gulp": "^4.0.2",
